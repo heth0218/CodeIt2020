@@ -9,6 +9,9 @@ import Login from './components/auth/Login'
 import Register from './components/auth/Register'
 import Navbar from './components/layout/Navbar';
 import File from './components/File'
+import Dashboard from './components/layout/Dashboard'
+import VideoUpload from './components/layout/VideoUpload'
+
 function App() {
   useEffect(() => {
     //Initializes materialize js
@@ -19,10 +22,11 @@ function App() {
       <Router>
         <Navbar />
         <Switch>
+          <Route exact path='/' component={Dashboard} />
           <Route exact path='/login' component={Login} />
           <Route exact path='/register' component={Register} />
           <Route exact path='/file' component={File} />
-
+          <Route exact path='/video' component={VideoUpload} />
         </Switch>
       </Router>
     </Provider>
