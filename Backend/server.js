@@ -9,13 +9,12 @@ app.use(express.json({ extended: false }));
 app.use('/public', express.static('public'));
 app.use('/api/users', require('./routes/user'));
 
-app.use('/api/teachers', require('./routes/teacher'));
-=======
+app.use('/api/admin', require('./routes/admin'));
 app.use('/api/course', course);
 
 
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`Hey! listening to you on port ${PORT}`);
+    console.log(`Hey! listening to you on port ${PORT}`);
 });
