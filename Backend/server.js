@@ -8,7 +8,7 @@ connectDB();
 app.use(express.json({ extended: false }));
 app.use('/public', express.static('public'));
 app.use('/api/users', require('./routes/user'));
-
+app.use('/api/teachers', require('./routes/teacher'));
 
 const PORT = process.env.PORT || 5000;
 
