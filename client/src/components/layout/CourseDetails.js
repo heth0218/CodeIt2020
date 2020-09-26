@@ -10,7 +10,7 @@ const CourseDetails = ({ current, user }) => {
 
     }, [])
     return (
-        <div className="container">
+        <div className="container" style={{ marginBottom: '100px' }}>
             <div className="center">
                 <h1>
                     <span class="grey-text">Course</span>
