@@ -1,10 +1,15 @@
 import React from 'react'
 import { Link } from "react-router-dom";
+import { setCurrent } from '../../actions/courseActions'
+import { connect } from 'react-redux'
 
-
-
-const CourseItem = ({ course }) => {
+const CourseItem = ({ course, setCurrent }) => {
     const { Name, description, Thumbnail } = course
+
+    const setCurrentCourse = () => {
+        setCurrent(course);
+    }
+
     return (
         <div className="column" float="left" width="50%">
             <div className="col s6 m4 l6">
@@ -19,6 +24,7 @@ const CourseItem = ({ course }) => {
                         <Link
                                 to="/courseDetail"
                                 class="btn-floating waves-effect waves-light teal  darken-1"
+                                onClick={setCurrentCourse}
                             >
                                 <i class="material-icons">keyboard_arrow_right</i>
                             </Link></span>
@@ -35,4 +41,4 @@ const CourseItem = ({ course }) => {
     )
 }
 
-export default CourseItem
+export default connect(null, { setCurrent })(CourseItem)

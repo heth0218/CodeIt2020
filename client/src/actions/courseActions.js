@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES } from './types'
+import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT } from './types'
 
 export const getCourses = () => async dispatch => {
     try {
@@ -85,6 +85,20 @@ export const getMyCourses = () => async dispatch => {
         })
 
 
+    } catch (error) {
+        dispatch({
+            type: COURSE_ERROR,
+            payload: error.response.statusText
+        })
+    }
+}
+
+export const setCurrent = (course) => async dispatch => {
+    try {
+        dispatch({
+            type: SET_CURRENT,
+            payload: course
+        })
     } catch (error) {
         dispatch({
             type: COURSE_ERROR,

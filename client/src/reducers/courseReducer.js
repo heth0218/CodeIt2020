@@ -1,4 +1,4 @@
-import { GET_COURSES, COURSE_ERROR, FILTER_COURSES, CLEAR_FILTER, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES } from '../actions/types'
+import { GET_COURSES, COURSE_ERROR, FILTER_COURSES, CLEAR_FILTER, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT } from '../actions/types'
 import heth from '../photos/heth.jpeg'
 import jash from '../photos/jash.jpeg'
 import jenish from '../photos/jenish.jpeg'
@@ -98,6 +98,11 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 myCourses: action.payload
+            }
+        case SET_CURRENT:
+            return {
+                ...state,
+                currentCourse: action.payload
             }
         default:
             return { ...state }
