@@ -34,7 +34,8 @@ let upload = multer({
     if (
       file.mimetype == 'image/png' ||
       file.mimetype == 'image/jpg' ||
-      file.mimetype == 'image/jpeg'
+      file.mimetype == 'image/jpeg' ||
+      file.mimetype == 'text/csv'
     ) {
       cb(null, true);
     } else {
@@ -123,8 +124,15 @@ router.post(
     const { email, password } = req.body;
 
     try {
-      let user = await User.findOne({ email });
-
+      let user = await User.findOne({ email }).populate({
+        path: 'enrolled_in',
+        populate: {
+          path: 'Course',
+          populate: {
+            path: 'videos quiz',
+          },
+        },
+      });
       if (!user) {
         return res.status(400).json({
           msg: 'User not found',

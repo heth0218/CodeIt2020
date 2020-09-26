@@ -10,7 +10,7 @@ const {
   OneCourse,
 } = require('../Controllers/course');
 
-router.route('/all_courses').get(All_Courses_Cache, AllCourses);
+router.route('/all_courses').get(AllCourses);
 router.route('/create_course').post(admin_access, CreateCourse);
 router.route('/update_course/:course_id').put(admin_access, UpdateCourse);
 router.route('/delete_course/:course_id').delete(admin_access, DeleteCourse);

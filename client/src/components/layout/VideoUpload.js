@@ -6,10 +6,11 @@ import { connect } from 'react-redux'
 import { saveVideo } from '../../actions/courseActions'
 import { loadUser } from '../../actions/userActions'
 
-const VideoUpload = ({ saveVideo, loadUser }) => {
+const VideoUpload = ({ saveVideo, loadUser, current }) => {
 
     const [files, setFiles] = useState();
     const [url, setUrl] = useState();
+    const [title, setTitle] = useState();
 
     useEffect(() => {
         loadUser()
@@ -46,7 +47,7 @@ const VideoUpload = ({ saveVideo, loadUser }) => {
         // })
         const url = await storageRef.child('images/' + files[0].name).getDownloadURL();
         console.log(url)
-        saveVideo('1', url)
+        saveVideo(current._id, title, url)
 
         M.toast({ html: "Video saved successfully" });
 
@@ -66,7 +67,7 @@ const VideoUpload = ({ saveVideo, loadUser }) => {
         const url = await storageRef.child('images/' + files[0].name).getDownloadURL();
         console.log(url)
         setUrl(url)
-        saveVideo('1', url)
+
         if (!url) {
             return M.toast({ html: 'Please upload a video to show!!' })
         }
@@ -75,11 +76,16 @@ const VideoUpload = ({ saveVideo, loadUser }) => {
     return (
         <div className="container" style={{ marginBottom: '1000px' }}>
             {/* <input type="file" onChange={(e) => { handleChange(e.target.files) }} /> */}
-            <h1>
+            <h1 style={{ marginTop: '100px' }}>
                 <span class="grey-text">Upload</span>
                 <span className="teal-text"> Lecture</span>
                 <br /><br />
             </h1>
+            <div className="input-field">
+                <div className="material-icons prefix teal-text">title</div>
+                <input required type="text" name='title' value={title} id="title" onChange={e => setTitle(e.target.value)} />
+                <label className="white-text" for="title">Title</label>
+            </div>
             <div class="file-field input-field">
                 <div class="btn">
                     <span>Video</span>
@@ -104,6 +110,8 @@ const VideoUpload = ({ saveVideo, loadUser }) => {
     );
 }
 
+const mapStateToProps = (state) => ({
+    current: state.course.currentCourse
+})
 
-
-export default connect(null, { saveVideo, loadUser })(VideoUpload)
+export default connect(mapStateToProps, { saveVideo, loadUser })(VideoUpload)
