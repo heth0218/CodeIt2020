@@ -1,6 +1,15 @@
 const Course = require('../Models/Course');
 const MyCourse = require('../models/MyCourse');
 const User = require('../models/User');
+const path = require('path');
+const FILE_UPLOAD_PATH = './public/quiz_uploads';
+const multer = require('multer');
+const { uuid } = require('uuidv4');
+const DIR = './public/quiz_uploads';
+const fs = require('fs');
+
+const neatCsv = require('neat-csv');
+
 exports.Enroll = async (req, res, next) => {
   try {
     req.body.user = req.user._id;
@@ -30,13 +39,14 @@ exports.MyCourse = async (req, res, next) => {
   }
 };
 
-exports.MarksEntry = async (req, res, next) => {
+/*
+
+const MarksEntry = async ({ marks, outOf, quiz, user, course_id }) => {
   try {
-    const { marks, outOf, quiz, user } = req.body;
     const u = await User.findOne({ email: user });
     const mycourse = await MyCourse.findOne({
       user: u._id,
-      Course: req.params.course_id,
+      Course: course_id,
     });
     console.log(mycourse);
     let obj = {
@@ -47,13 +57,50 @@ exports.MarksEntry = async (req, res, next) => {
     let final_arr = [...mycourse.quiz_attempted, obj];
     mycourse.quiz_attempted = final_arr;
     await mycourse.save();
-    return res.status(200).json({ success: true, data: mycourse });
+    return '1';
   } catch (error) {
-    return res.status(500).json(error);
+    return '0';
+  }
+};
+*/
+
+//Multer
+
+exports.Marks_Entry = async (req, res, next) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ success: false });
+    }
+    console.log(req.file.filename);
+
+    let data = fs.readFileSync(`./public/quiz_uploads/${req.file.filename}`);
+    data = await neatCsv(data);
+
+    console.log(data);
+
+    data.map(async (d) => {
+      const u = await User.findOne({ email: d.Email });
+      const mycourse = await MyCourse.findOne({
+        user: u._id,
+        Course: req.params.course_id,
+      });
+      console.log(mycourse);
+      let obj = {
+        quiz: req.params.quiz_id,
+        marks: d.Score.split('/')[0],
+        outOf: d.Score.split('/')[1],
+      };
+      let final_arr = [...mycourse.quiz_attempted, obj];
+      mycourse.quiz_attempted = final_arr;
+      await mycourse.save();
+    });
+    return res.status(200).json({ success: true });
+  } catch (error) {
+    res.status(400).json(error);
   }
 };
 
-//For admin Dasboard,so admin can keep track of students progress in a perticular Course
+//For admin Dasboard,so admin can keep track of students progress in particular Course
 
 exports.Student_Progress = async (req, res, next) => {
   try {

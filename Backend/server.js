@@ -7,10 +7,16 @@ const myCourse = require('./routes/MyCourse');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
+const multer = require('multer');
+const fileUpload = require('express-fileupload');
+
 connectDB();
+
 app.use(cors());
 app.use(morgan('dev'));
+
 app.use(express.json({ extended: false }));
+app.use(fileUpload());
 app.use('/public', express.static('public'));
 app.use('/api/users', require('./routes/user'));
 
@@ -22,5 +28,5 @@ app.use('/api/quiz', quiz);
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-    console.log(`Hey! listening to you on port ${PORT}`);
+  console.log(`Hey! listening to you on port ${PORT}`);
 });
