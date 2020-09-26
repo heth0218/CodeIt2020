@@ -82,11 +82,11 @@ const AddCourse = ({ addCourse, loadUser, user }) => {
                 <h2>Please Login to avail this facility</h2>
             ) : (
                     <div className="form-container">
-                        <h1>
+                        <center><h2>
                             <span class="grey-text">Add</span>
                             <span className="teal-text"> Course</span>
                             <br /><br />
-                        </h1>
+                        </h2></center>
                         <form onSubmit={onSubmit}>
                             <div className="form-group">
                                 <label htmlFor="name">Name</label>

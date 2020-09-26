@@ -4,6 +4,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { logout, loadUser } from '../../actions/userActions'
 import M from 'materialize-css/dist/js/materialize.min.js';
+import '../../App.css';
 
 const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
 
@@ -21,10 +22,10 @@ const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
         <div>
             <div class="navbar-fixed">
                 <nav class="teal">
-                    <div class="container">
+                    <div class="nav-h">
                         <div class="nav-wrapper">
-                            <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
-                            <a href="#home" class="brand-logo"><h4><span className="white-text lighten-5">Course</span><span>It</span></h4></a>
+                            <a href="/" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
+                            <a href="/" class="brand-logo"><div><span className="white-text lighten-5">Course - </span><span>It</span></div></a>
                             <ul class="right hide-on-med-and-down">
                                 <li>
                                     <Link to='/' class="waves-effect waves-light">Home</Link>
