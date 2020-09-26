@@ -19,7 +19,7 @@ const VideoUpload = ({ saveVideo, loadUser }) => {
         setFiles(file)
     }
 
-    const handleSave = () => {
+    const handleSave = async () => {
         if (!files) {
             return M.toast({ html: "Please insert a video!" });
 
@@ -30,29 +30,43 @@ const VideoUpload = ({ saveVideo, loadUser }) => {
         let uploadTask = storageRef.put(file);
         uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED, () => {
             let downloadURL = uploadTask.snapshot.downloadURL
-
         })
+
+        // storageRef = firebase.storage().ref();
+
+        // storageRef.child('images/' + files[0].name).getDownloadURL().then((url) => {
+        //     console.log(url);
+        //     saveVideo('1', url)
+        // })
         storageRef = firebase.storage().ref();
+        // let spaceRef = storageRef.child('images/' + files[0].name);
+        // storageRef.child('images/' + files[0].name).getDownloadURL().then((url) => {
+        //     console.log(url);
+        //     saveVideo('1', url)
+        // })
+        const url = await storageRef.child('images/' + files[0].name).getDownloadURL();
+        console.log(url)
+        saveVideo('1', url)
 
-        storageRef.child('images/' + files[0].name).getDownloadURL().then((url) => {
-            console.log(url);
-            saveVideo('1', url)
-        })
         M.toast({ html: "Video saved successfully" });
 
     }
 
-    const showImage = () => {
+    const showImage = async () => {
         if (!files) {
             return M.toast({ html: 'Please upload a video to show!!' })
 
         }
         let storageRef = firebase.storage().ref();
         // let spaceRef = storageRef.child('images/' + files[0].name);
-        storageRef.child('images/' + files[0].name).getDownloadURL().then((url) => {
-            console.log(url);
-            setUrl(url)
-        })
+        // storageRef.child('images/' + files[0].name).getDownloadURL().then((url) => {
+        //     console.log(url);
+        //     setUrl(url)
+        // })
+        const url = await storageRef.child('images/' + files[0].name).getDownloadURL();
+        console.log(url)
+        setUrl(url)
+        saveVideo('1', url)
         if (!url) {
             return M.toast({ html: 'Please upload a video to show!!' })
         }
@@ -92,4 +106,4 @@ const VideoUpload = ({ saveVideo, loadUser }) => {
 
 
 
-export default connect(null, { saveVideo, loadUser })(VideoUpload);
+export default connect(null, { saveVideo, loadUser })(VideoUpload)

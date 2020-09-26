@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 const CourseItem = ({ course }) => {
-    const { name, description, imageUrl } = course
+    const { Name, description, imageUrl } = course
     return (
         <div className="column" float="left" width="50%">
             <div className="col s6 m4 l6">
@@ -15,7 +15,7 @@ const CourseItem = ({ course }) => {
                     </div>
                     {/* <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a> */}
                     <div class="card-content">
-                        <span class="card-title grey-text text-darken-4"><h2 className="teal-text">{name}</h2>&nbsp; &nbsp;&nbsp;&nbsp;
+                        <span class="card-title grey-text text-darken-4"><h2 className="teal-text">{Name}</h2>&nbsp; &nbsp;&nbsp;&nbsp;
                         <Link
                                 to="/courseDetail"
                                 class="btn-floating waves-effect waves-light teal  darken-1"
@@ -25,7 +25,7 @@ const CourseItem = ({ course }) => {
                     </div>
                     <div class="card-reveal">
 
-                        <span class="card-title grey-text text-darken-4"><h3>{name}</h3>< i class="material-icons right">close</i></span>
+                        <span class="card-title grey-text text-darken-4"><h3>{Name}</h3>< i class="material-icons right">close</i></span>
                         <h5>{description}</h5>
 
                     </div>

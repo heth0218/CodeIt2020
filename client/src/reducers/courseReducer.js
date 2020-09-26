@@ -1,4 +1,4 @@
-import { GET_COURSES, COURSE_ERROR, FILTER_COURSES, CLEAR_FILTER, SAVE_VIDEO } from '../actions/types'
+import { GET_COURSES, COURSE_ERROR, FILTER_COURSES, CLEAR_FILTER, SAVE_VIDEO, ADD_COURSE } from '../actions/types'
 import heth from '../photos/heth.jpeg'
 import jash from '../photos/jash.jpeg'
 import jenish from '../photos/jenish.jpeg'
@@ -55,7 +55,7 @@ export default (state = initialState, action) => {
                 ...state,
                 filtered: state.courses.filter(course => {
                     const regex = new RegExp(`${action.payload}`, 'gi');
-                    return course.name.match(regex);
+                    return course.Name.match(regex);
                 })
             }
         case CLEAR_FILTER:
@@ -67,6 +67,12 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 videos: [action.payload, ...state.videos]
+            }
+        case ADD_COURSE:
+            console.log(action.payload)
+            return {
+                ...state,
+                courses: [action.payload, ...state.courses]
             }
         default:
             return { ...state }

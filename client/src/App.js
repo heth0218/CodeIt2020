@@ -11,6 +11,7 @@ import Navbar from './components/layout/Navbar';
 import File from './components/File'
 import Dashboard from './components/layout/Dashboard'
 import VideoUpload from './components/layout/VideoUpload'
+import AddCourse from './components/layout/AddCourse'
 
 function App() {
   useEffect(() => {
@@ -27,6 +28,8 @@ function App() {
           <Route exact path='/register' component={Register} />
           <Route exact path='/file' component={File} />
           <Route exact path='/video' component={VideoUpload} />
+          <Route exact path='/addCourse' component={AddCourse} />
+
         </Switch>
       </Router>
     </Provider>

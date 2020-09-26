@@ -1,13 +1,13 @@
 import axios from 'axios'
-import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO } from './types'
+import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE } from './types'
 
 export const getCourses = () => async dispatch => {
     try {
-        const res = await axios.get('/api/course');
-        console.log(res.data)
+        const res = await axios.get('/api/course/all_courses');
+        console.log(res.data.courses)
         dispatch({
             type: GET_COURSES,
-            payload: res.data
+            payload: res.data.courses
         })
     } catch (error) {
         dispatch({
@@ -34,6 +34,19 @@ export const saveVideo = (courseId, url) => async dispatch => {
         dispatch({
             type: SAVE_VIDEO,
             payload: { courseId, url }
+        })
+    } catch (error) {
+        dispatch({
+            type: COURSE_ERROR,
+            payload: error.response.statusText
+        })
+    }
+}
+export const addCourse = (name, description) => async dispatch => {
+    try {
+        dispatch({
+            type: ADD_COURSE,
+            payload: { name, description }
         })
     } catch (error) {
         dispatch({

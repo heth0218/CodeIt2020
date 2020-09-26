@@ -30,12 +30,17 @@ const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
                                     <Link to='/' class="waves-effect waves-light">Home</Link>
                                 </li>
                                 {isAuthenticated ? (
-                                    < Fragment>
+
+                                    < Fragment >
+                                        {user && user.role !== 'admin' ? (<li></li>) : (
+                                            <li>
+                                                <Link to="/addCourse"><i className="material-icons">add</i></Link>
+                                            </li>)}
                                         <li>
                                             <span>
                                                 &nbsp;&nbsp;&nbsp;Hello, {user.name}
                                             </span>
-                                        </li>&nbsp;&nbsp;
+                                        </li> &nbsp;&nbsp;
 
                                         <li>
                                             <a onClick={onLogout} href='#!'>
