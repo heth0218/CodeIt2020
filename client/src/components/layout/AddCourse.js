@@ -65,11 +65,13 @@ const AddCourse = ({ addCourse, loadUser, user }) => {
         console.log(
             name,
             description,
+            url
         )
 
         addCourse(
             name,
             description,
+            url
         )
         M.toast({ html: ` ${name}, you have successfully been registered ` })
     }

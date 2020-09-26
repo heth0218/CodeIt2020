@@ -4,13 +4,13 @@ import { Link } from "react-router-dom";
 
 
 const CourseItem = ({ course }) => {
-    const { Name, description, imageUrl } = course
+    const { Name, description, Thumbnail } = course
     return (
         <div className="column" float="left" width="50%">
             <div className="col s6 m4 l6">
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light">
-                        <img width="250" height="250" class="activator" src={imageUrl} />
+                        <img width="250" height="250" class="activator" src={Thumbnail} />
 
                     </div>
                     {/* <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a> */}

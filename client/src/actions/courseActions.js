@@ -42,8 +42,21 @@ export const saveVideo = (courseId, url) => async dispatch => {
         })
     }
 }
-export const addCourse = (name, description) => async dispatch => {
+export const addCourse = (name, description, url) => async dispatch => {
+
+    const doc = {
+        Name: name,
+        description,
+        Thumbnail: url
+    }
     try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const response = await axios.post('/api/course/create_course', doc, config)
+        console.log(response.data);
         dispatch({
             type: ADD_COURSE,
             payload: { name, description }
