@@ -47,7 +47,7 @@ const VideoUpload = ({ saveVideo, loadUser, current }) => {
         // })
         const url = await storageRef.child('images/' + files[0].name).getDownloadURL();
         console.log(url)
-        saveVideo('hello', title, url)
+        saveVideo(current._id, title, url)
 
         M.toast({ html: "Video saved successfully" });
 

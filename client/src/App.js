@@ -34,7 +34,6 @@ function App() {
           <Route exact path='/myCourses' component={MyCourses} />
           <Route exact path='/courseDetail' component={CourseDetails} />
 
-
         </Switch>
       </Router>
     </Provider>

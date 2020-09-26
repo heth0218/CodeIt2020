@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import VideoPlayer from './VideoPlayer'
+import { Link } from "react-router-dom";
 
 const CourseDetails = ({ current, user }) => {
     const { Name, description, videos, quiz, Thumbnail } = current
@@ -39,7 +40,7 @@ const CourseDetails = ({ current, user }) => {
                 </div>
             </div>
             {user.role === 'admin' && <div className="right">
-                <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                <Link to='/video' class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></Link>
             </div>}
         </div>
     )
