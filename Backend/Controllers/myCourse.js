@@ -1,4 +1,4 @@
-const Course = require('../Models/Course');
+const Course = require('../models/Course');
 const MyCourse = require('../models/MyCourse');
 const User = require('../models/User');
 const path = require('path');
@@ -40,7 +40,6 @@ exports.MyCourse = async (req, res, next) => {
 };
 
 /*
-
 const MarksEntry = async ({ marks, outOf, quiz, user, course_id }) => {
   try {
     const u = await User.findOne({ email: user });
@@ -100,7 +99,27 @@ exports.Marks_Entry = async (req, res, next) => {
   }
 };
 
-//For admin Dasboard,so admin can keep track of students progress in particular Course
+exports.OneCourse = async (req, res, next) => {
+  try {
+    const course = await MyCourse.findOne({
+      user: req.user._id,
+      Course: req.params.course_id,
+    })
+      .select('quiz_attempted')
+      .populate({
+        path: 'quiz_attempted.quiz',
+        select: 'Title',
+      });
+    if (!course) {
+      return res.status(400).json({ msg: 'No such course exists' });
+    }
+    return res.status(200).json({ success: true, data: course });
+  } catch (error) {
+    return res.status(500).json(error);
+  }
+};
+
+//For admin Dashboard,so admin can keep track of students progress in particular Course
 
 exports.Student_Progress = async (req, res, next) => {
   try {
