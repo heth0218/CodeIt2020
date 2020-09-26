@@ -67,7 +67,7 @@ const CourseDetails = ({ myCourses, current, user, setQuiz }) => {
             </div>
             {user.role === 'admin' && <div className="right">
                 <Link to='/video' class="btn-floating btn-large waves-effect waves-light teal"><i class="material-icons">add</i></Link>&nbsp;&nbsp;&nbsp;&nbsp;
-                <Link to='/' class="btn btn-large waves-effect waves-light teal">Add New Quiz</Link>
+                <Link to='/newQuiz' class="btn btn-large waves-effect waves-light teal">Add New Quiz</Link>
             </div>}
         </div>
     )

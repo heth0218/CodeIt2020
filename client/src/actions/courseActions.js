@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT, SET_QUIZ } from './types'
+import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT, SET_QUIZ, ADD_NEW_QUIZ } from './types'
 
 export const getCourses = () => async dispatch => {
     try {
@@ -124,6 +124,23 @@ export const setQuiz = (quiz) => async dispatch => {
             type: SET_QUIZ,
             payload: quiz
         })
+    } catch (error) {
+        dispatch({
+            type: COURSE_ERROR,
+            payload: error.response.statusText
+        })
+    }
+}
+
+export const newQuiz = (quiz) => async dispatch => {
+    try {
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const response = await axios.post(`/api/quiz/create_quiz/${quiz.Course}`, quiz, config)
+        console.log(response.data)
     } catch (error) {
         dispatch({
             type: COURSE_ERROR,

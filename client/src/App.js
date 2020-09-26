@@ -15,6 +15,7 @@ import AddCourse from './components/layout/AddCourse'
 import MyCourses from './components/layout/MyCourses'
 import CourseDetails from './components/layout/CourseDetails'
 import GoogleForm from './components/layout/GoogleForm'
+import NewQuiz from './components/layout/NewQuiz'
 
 function App() {
   useEffect(() => {
@@ -35,7 +36,7 @@ function App() {
           <Route exact path='/myCourses' component={MyCourses} />
           <Route exact path='/courseDetail' component={CourseDetails} />
           <Route exact path='/google' component={GoogleForm} />
-
+          <Route exact path='/newQuiz' component={NewQuiz} />
         </Switch>
       </Router>
     </Provider>
