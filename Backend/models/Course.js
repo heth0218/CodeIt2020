@@ -21,6 +21,9 @@ const CourseSchema = new mongoose.Schema(
       ref: 'user',
       required: true,
     },
+    Thumbnail: {
+      type: String,
+    },
   },
   {
     toJSON: { virtuals: true },
