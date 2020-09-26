@@ -29,11 +29,23 @@ export const clearFilter = () => {
     };
 };
 
-export const saveVideo = (courseId, url) => async dispatch => {
+export const saveVideo = (current_id, title, url) => async dispatch => {
     try {
+        const doc = {
+            Title: title,
+            Vurl: url
+        }
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+                'x-auth-token': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNWY2ZWUxYmI2NDdlNjc3MWRjNTYxNDIzIn0sImlhdCI6MTYwMTEyNTI3NiwiZXhwIjoxNjAxNDg1Mjc2fQ.xHrwixX__cqgzpbtu2qpx69qNz2URCGFo9bPha2pTv4'
+            }
+        }
+        const response = await axios.post(`api/videos/add_video/5f6e4f1df2b87e5994d6092a`, doc, config)
+        console.log(response.data)
         dispatch({
             type: SAVE_VIDEO,
-            payload: { courseId, url }
+            payload: { url }
         })
     } catch (error) {
         dispatch({

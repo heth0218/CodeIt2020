@@ -13,6 +13,7 @@ import Dashboard from './components/layout/Dashboard'
 import VideoUpload from './components/layout/VideoUpload'
 import AddCourse from './components/layout/AddCourse'
 import MyCourses from './components/layout/MyCourses'
+import CourseDetails from './components/layout/CourseDetails'
 
 function App() {
   useEffect(() => {
@@ -31,6 +32,8 @@ function App() {
           <Route exact path='/video' component={VideoUpload} />
           <Route exact path='/addCourse' component={AddCourse} />
           <Route exact path='/myCourses' component={MyCourses} />
+          <Route exact path='/courseDetail' component={CourseDetails} />
+
 
         </Switch>
       </Router>
