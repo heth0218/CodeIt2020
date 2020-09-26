@@ -32,10 +32,14 @@ const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
                                 {isAuthenticated ? (
 
                                     < Fragment >
-                                        {user && user.role !== 'admin' ? (<li></li>) : (
+                                        {user && user.role !== 'admin' ? (
                                             <li>
-                                                <Link to="/addCourse"><i className="material-icons">add</i></Link>
-                                            </li>)}
+                                                <Link to="/myCourses" className="waves-effect waves-light"><i className="material-icons">golf_course</i>My Courses</Link>
+                                            </li>
+                                        ) : (
+                                                <li>
+                                                    <Link to="/addCourse" className="waves-effect waves-light"><i className="material-icons">add</i></Link>
+                                                </li>)}
                                         <li>
                                             <span>
                                                 &nbsp;&nbsp;&nbsp;Hello, {user.name}
@@ -43,7 +47,7 @@ const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
                                         </li> &nbsp;&nbsp;
 
                                         <li>
-                                            <a onClick={onLogout} href='#!'>
+                                            <a onClick={onLogout} href='#!' className="waves-effect waves-light">
                                                 <i className="fas fa-sign-out-alt"></i>
                                                 <span className="hide-sm">Logout</span>
                                             </a>
