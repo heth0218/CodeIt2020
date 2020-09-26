@@ -5,9 +5,11 @@ const quiz = require('./routes/quiz');
 const videos = require('./routes/video');
 const myCourse = require('./routes/MyCourse');
 const app = express();
-
+const cors = require('cors');
+const morgan = require('morgan');
 connectDB();
-
+app.use(cors());
+app.use(morgan('dev'));
 app.use(express.json({ extended: false }));
 app.use('/public', express.static('public'));
 app.use('/api/users', require('./routes/user'));

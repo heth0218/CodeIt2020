@@ -33,4 +33,10 @@ const UserSchema = mongoose.Schema(
   }
 );
 
+UserSchema.virtual('enrolled_in', {
+  ref: 'MyCourse',
+  localField: '_id',
+  foreignField: 'user',
+  justOne: false,
+});
 module.exports = mongoose.model('user', UserSchema);
