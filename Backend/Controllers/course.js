@@ -6,7 +6,7 @@ const client = redis.createClient(REDIS_PORT);
 
 exports.AllCourses = async (req, res, next) => {
   try {
-    const courses = await Course.find({});
+    const courses = await Course.find({}).populate('videos').populate('quiz');
     if (!courses) {
       return res.status(400).json({ msg: 'No courses availible now ...' });
     }
@@ -61,7 +61,9 @@ exports.DeleteCourse = async (req, res, next) => {
 
 exports.OneCourse = async (req, res, next) => {
   try {
-    const course = await Course.findById(req.params.course_id);
+    const course = await Course.findById(req.params.course_id)
+      .populate('videos')
+      .populate('quiz');
     if (!course) {
       return res.status(400).json({ msg: 'No such Course exists' });
     }

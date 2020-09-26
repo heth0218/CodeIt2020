@@ -18,7 +18,7 @@ const CourseSchema = new mongoose.Schema(
     },
     Publisher: {
       type: mongoose.Schema.ObjectId,
-      ref: 'User',
+      ref: 'user',
       required: true,
     },
   },
@@ -27,4 +27,17 @@ const CourseSchema = new mongoose.Schema(
     toObject: { virtuals: true },
   }
 );
+CourseSchema.virtual('videos', {
+  ref: 'video',
+  localField: '_id',
+  foreignField: 'course',
+  justOne: false,
+});
+
+CourseSchema.virtual('quiz', {
+  ref: 'quiz',
+  localField: '_id',
+  foreignField: 'Course',
+  justOne: false,
+});
 module.exports = mongoose.model('Course', CourseSchema);
