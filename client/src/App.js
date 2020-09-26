@@ -14,6 +14,7 @@ import VideoUpload from './components/layout/VideoUpload'
 import AddCourse from './components/layout/AddCourse'
 import MyCourses from './components/layout/MyCourses'
 import CourseDetails from './components/layout/CourseDetails'
+import GoogleForm from './components/layout/GoogleForm'
 
 function App() {
   useEffect(() => {
@@ -33,6 +34,7 @@ function App() {
           <Route exact path='/addCourse' component={AddCourse} />
           <Route exact path='/myCourses' component={MyCourses} />
           <Route exact path='/courseDetail' component={CourseDetails} />
+          <Route exact path='/google' component={GoogleForm} />
 
         </Switch>
       </Router>

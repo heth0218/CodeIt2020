@@ -1,4 +1,4 @@
-import { GET_COURSES, COURSE_ERROR, FILTER_COURSES, CLEAR_FILTER, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT } from '../actions/types'
+import { GET_COURSES, COURSE_ERROR, FILTER_COURSES, CLEAR_FILTER, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT, LOGOUT, SET_QUIZ } from '../actions/types'
 import heth from '../photos/heth.jpeg'
 import jash from '../photos/jash.jpeg'
 import jenish from '../photos/jenish.jpeg'
@@ -55,7 +55,8 @@ const initialState = {
         }
     ],
     filtered: null,
-    videos: []
+    videos: [],
+    quiz: null
 }
 
 export default (state = initialState, action) => {
@@ -103,6 +104,20 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 currentCourse: action.payload
+            }
+        case LOGOUT:
+            return {
+                courses: null,
+                error: null,
+                currentCourse: null,
+                myCourses: null,
+                filtered: null,
+                videos: null
+            }
+        case SET_QUIZ:
+            return {
+                ...state,
+                quiz: action.payload
             }
         default:
             return { ...state }

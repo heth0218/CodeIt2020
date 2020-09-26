@@ -1,14 +1,26 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { connect } from 'react-redux'
 import VideoPlayer from './VideoPlayer'
 import { Link } from "react-router-dom";
+import { setQuiz } from '../../actions/courseActions'
 
-const CourseDetails = ({ current, user }) => {
+const CourseDetails = ({ myCourses, current, user, setQuiz }) => {
     const { Name, description, videos, quiz, Thumbnail } = current
+    const [mine, setMine] = useState(false);
+
     useEffect(() => {
+        if (myCourses) {
+            myCourses.map(course => {
+                if (course._id === current._id) {
+                    setMine(true)
+                }
+            })
+        }
 
-
-    }, [])
+    }, [mine])
+    const setQuizz = (qu) => {
+        setQuiz(qu)
+    }
     return (
         <div className="container" style={{ marginBottom: '100px' }}>
             <div className="center">
@@ -30,6 +42,7 @@ const CourseDetails = ({ current, user }) => {
                     </div>
                 </div>
             </div>
+            <div className="center"><h3 className="teal-text">Range of Tutorials for this course</h3></div>
             <div className="row">
                 <div className="col s12 m12 l8">
                     <div className="collection">
@@ -39,8 +52,22 @@ const CourseDetails = ({ current, user }) => {
                     </div>
                 </div>
             </div>
+            <div className="center"><h3 className="teal-text">Fun Quizes waiting for you!</h3></div>
+            <div className="row">
+                <div className="col s12 m12 l8">
+                    <div className="collection">
+                        {((mine && quiz) || (user.role === 'admin' && quiz)) && quiz.map((qu) =>
+                            <div>
+                                <Link href="#!" to='/google' class="collection-item" onClick={setQuizz.bind(this, qu)} ><span class="badge"></span><h4>{qu.Title}</h4><br /><p>{qu.Description}</p></Link>
+
+                            </div>
+                        )}
+                    </div>
+                </div>
+            </div>
             {user.role === 'admin' && <div className="right">
-                <Link to='/video' class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></Link>
+                <Link to='/video' class="btn-floating btn-large waves-effect waves-light teal"><i class="material-icons">add</i></Link>&nbsp;&nbsp;&nbsp;&nbsp;
+                <Link to='/' class="btn btn-large waves-effect waves-light teal">Add New Quiz</Link>
             </div>}
         </div>
     )
@@ -48,8 +75,10 @@ const CourseDetails = ({ current, user }) => {
 
 const mapStateToProps = (state) => ({
     current: state.course.currentCourse,
-    user: state.user.user
+    user: state.user.user,
+    myCourses: state.course.myCourses,
+
 })
 
 
-export default connect(mapStateToProps, null)(CourseDetails)
+export default connect(mapStateToProps, { setQuiz })(CourseDetails)

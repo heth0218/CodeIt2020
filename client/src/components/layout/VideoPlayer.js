@@ -2,16 +2,19 @@ import React, { useState, useEffect } from 'react'
 import { Player } from 'video-react';
 import { connect } from 'react-redux'
 
-const VideoPlayer = ({ video, myCourses, current }) => {
+const VideoPlayer = ({ video, myCourses, current, user }) => {
 
     const [mine, setMine] = useState(false);
 
     useEffect(() => {
-        myCourses.map(course => {
-            if (course._id === current._id) {
-                setMine(true)
-            }
-        })
+        if (myCourses) {
+            myCourses.map(course => {
+                if (course._id === current._id) {
+                    setMine(true)
+                }
+            })
+        }
+
     }, [mine])
 
     const { Title, Vurl } = video
@@ -27,7 +30,7 @@ const VideoPlayer = ({ video, myCourses, current }) => {
             <h4>
                 <a href="#!" class="collection-item" onClick={onVideoClick}><span class="badge"></span>{Title}</a>
                 <div style={{ "height": "auto", "width": "300px", "marginLeft": "500px", "margin": "50px " }}>
-                    {clicked && mine && <Player>
+                    {((clicked && mine) || clicked && user.role === 'admin') && <Player>
                         <source src={Vurl} />
                     </Player>}
                 </div>
@@ -38,7 +41,8 @@ const VideoPlayer = ({ video, myCourses, current }) => {
 
 const mapStateToProps = (state) => ({
     myCourses: state.course.myCourses,
-    current: state.course.currentCourse
+    current: state.course.currentCourse,
+    user: state.user.user
 })
 
 export default connect(mapStateToProps, null)(VideoPlayer)

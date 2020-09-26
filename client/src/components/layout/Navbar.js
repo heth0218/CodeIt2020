@@ -24,7 +24,7 @@ const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
                     <div class="container">
                         <div class="nav-wrapper">
                             <a href="#" data-target="slide-out" className="sidenav-trigger"><i className="material-icons">menu</i></a>
-                            <a href="#home" class="brand-logo">Company Name</a>
+                            <a href="#home" class="brand-logo"><h4><span className="white-text lighten-5">Course</span><span>It</span></h4></a>
                             <ul class="right hide-on-med-and-down">
                                 <li>
                                     <Link to='/' class="waves-effect waves-light">Home</Link>
@@ -47,10 +47,10 @@ const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
                                         </li> &nbsp;&nbsp;
 
                                         <li>
-                                            <a onClick={onLogout} href='#!' className="waves-effect waves-light">
+                                            <Link to='/login' onClick={onLogout} href='#!' className="waves-effect waves-light">
                                                 <i className="fas fa-sign-out-alt"></i>
                                                 <span className="hide-sm">Logout</span>
-                                            </a>
+                                            </Link>
                                         </li>&nbsp;&nbsp;&nbsp;&nbsp;
                                         <li>
                                             <img src={user.imageUrl} alt="" height="50" width="50" style={{ marginTop: 5 }} className="circle"></img>
