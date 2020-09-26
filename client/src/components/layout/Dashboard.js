@@ -27,10 +27,10 @@ const Dashboard = ({ courses, getCourses, clearFilter, filterCourses, filtered, 
     return (
         <div>
             <div className="container center">
-                <h1>
+                <h2>
                     <span class="grey-text">All</span>
                     <span className="teal-text"> Courses</span>
-                </h1>
+                </h2>
                 <div className="container s12 m10">
                     <nav
                         className="teal darken-2"
