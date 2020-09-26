@@ -33,9 +33,13 @@ const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
 
                                     < Fragment >
                                         {user && user.role !== 'admin' ? (
-                                            <li>
-                                                <Link to="/myCourses" className="waves-effect waves-light"><i className="material-icons">golf_course</i>My Courses</Link>
-                                            </li>
+                                            <Fragment>
+
+                                                <li>
+                                                    <Link to="/myCourses" className="waves-effect waves-light"><i className="material-icons large">golf_course</i>My Courses</Link>
+                                                </li>
+                                            </Fragment>
+
                                         ) : (
                                                 <li>
                                                     <Link to="/addCourse" className="waves-effect waves-light"><i className="material-icons">add</i></Link>

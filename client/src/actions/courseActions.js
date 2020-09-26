@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT, SET_QUIZ, ADD_NEW_QUIZ } from './types'
+import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT, SET_QUIZ, ADD_NEW_QUIZ, GET_ANALYTICS, SHOW_ALL } from './types'
 
 export const getCourses = () => async dispatch => {
     try {
@@ -141,6 +141,54 @@ export const newQuiz = (quiz) => async dispatch => {
         }
         const response = await axios.post(`/api/quiz/create_quiz/${quiz.Course}`, quiz, config)
         console.log(response.data)
+    } catch (error) {
+        dispatch({
+            type: COURSE_ERROR,
+            payload: error.response.statusText
+        })
+    }
+}
+
+export const getAnalytics = (course_id, user_id) => async dispatch => {
+    try {
+        console.log(course_id, user_id)
+        const response = await axios.get(`https://codeitbackend.herokuapp.com/api/mycourse/analytics/${course_id}/${user_id}`)
+        // console.log(response.data)
+        const arr = response.data.data;
+        let marks = [];
+        let title = [];
+        arr.map(doc => {
+            marks.push(doc.marks);
+            title.push(doc.title)
+        })
+        console.log(marks, title)
+
+        dispatch({
+            type: GET_ANALYTICS,
+            payload: { marks, title }
+        })
+    } catch (error) {
+        dispatch({
+            type: COURSE_ERROR,
+            payload: error.response.statusText
+        })
+    }
+}
+
+export const showAll = (course_id) => async dispatch => {
+    try {
+        const response = await axios.get(`api/mycourse/track_students/${course_id}`)
+        console.log(response.data.data);
+        const data = response.data.data;
+        let res = []
+        data.map(doc => {
+            res.push(doc.user)
+        })
+        console.log(res, "user")
+        dispatch({
+            type: SHOW_ALL,
+            payload: res
+        })
     } catch (error) {
         dispatch({
             type: COURSE_ERROR,
