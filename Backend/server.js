@@ -4,6 +4,7 @@ const course = require('./routes/Courses');
 const quiz = require('./routes/quiz');
 const videos = require('./routes/video');
 const myCourse = require('./routes/MyCourse');
+const Payment = require('./routes/Payment');
 const app = express();
 const cors = require('cors');
 const morgan = require('morgan');
@@ -24,6 +25,7 @@ app.use('/api/course', course);
 app.use('/api/videos/', videos);
 app.use('/api/mycourse', myCourse);
 app.use('/api/quiz', quiz);
+app.use('/api', Payment);
 
 const PORT = process.env.PORT || 5000;
 
