@@ -3,8 +3,11 @@ import { connect } from 'react-redux'
 import VideoPlayer from './VideoPlayer'
 import { Link } from "react-router-dom";
 import { setQuiz, getAnalytics, showAll } from '../../actions/courseActions'
+import { loadUser } from '../../actions/userActions'
+import axios from 'axios'
+import M from 'materialize-css/dist/js/materialize.min.js';
 
-const CourseDetails = ({ myCourses, current, user, setQuiz, getAnalytics, showAll }) => {
+const CourseDetails = ({ myCourses, current, user, setQuiz, getAnalytics, showAll, loadUser }) => {
     const { Name, description, videos, quiz, Thumbnail } = current
     const [mine, setMine] = useState(false);
 
@@ -16,6 +19,7 @@ const CourseDetails = ({ myCourses, current, user, setQuiz, getAnalytics, showAl
                 }
             })
         }
+        loadUser();
 
     }, [mine])
     const setQuizz = (qu) => {
@@ -26,6 +30,19 @@ const CourseDetails = ({ myCourses, current, user, setQuiz, getAnalytics, showAl
     }
     const getAllUsers = () => {
         showAll(current._id)
+    }
+    const enroll = async (e) => {
+        e.preventDefault();
+        const config = {
+            headers: {
+                'Content-Type': 'application/json'
+            }
+        }
+        const data = []
+
+        const response = await axios.post(`https://codeitbackend.herokuapp.com/api/mycourse/enroll/${current._id}`)
+        console.log(response.data)
+        M.toast({ html: `${current.Name} has been added to your course list` })
     }
     return (
         <div className="container" style={{ marginBottom: '100px' }}>
@@ -48,14 +65,17 @@ const CourseDetails = ({ myCourses, current, user, setQuiz, getAnalytics, showAl
                     </div>
                 </div>
             </div>
-            {mine && <div >
-                <h4 className="teal-text">Book special doubt solving sessions with experts</h4>
-                <br />
-                <Link to="/personalMeet" className="btn waves-effect waves-light"><i className="material-icons left">event</i>Book Personal Meet</Link>
-                <br /><br />
-                <Link to="/getAnalytics" onClick={getAnalyticss} className="btn waves-effect waves-light"><i className="material-icons left">analytics</i>Analyse your performance</Link>
+            {!mine && user.role !== 'admin' && < div > <Link to="/" onClick={enroll} class="waves-effect waves-light btn-large">Enroll in this course</Link></div>}
+            {
+                mine && <div >
+                    <h4 className="teal-text">Book special doubt solving sessions with experts</h4>
+                    <br />
+                    <Link to="/personalMeet" className="btn waves-effect waves-light"><i className="material-icons left">event</i>Book Personal Meet</Link>
+                    <br /><br />
+                    <Link to="/getAnalytics" onClick={getAnalyticss} className="btn waves-effect waves-light"><i className="material-icons left">analytics</i>Analyse your performance</Link>
 
-            </div>}
+                </div>
+            }
             <div className="center"><h3 className="teal-text">Range of Tutorials for this course</h3></div>
             <div className="row">
                 <div className="col s12 m12 l8">
@@ -102,4 +122,4 @@ const mapStateToProps = (state) => ({
 })
 
 
-export default connect(mapStateToProps, { setQuiz, getAnalytics, showAll })(CourseDetails)
+export default connect(mapStateToProps, { setQuiz, getAnalytics, showAll, loadUser })(CourseDetails)

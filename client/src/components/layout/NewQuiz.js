@@ -1,10 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { connect } from 'react-redux'
 import { newQuiz } from '../../actions/courseActions'
 import M from 'materialize-css/dist/js/materialize.min.js';
 import { useHistory } from 'react-router-dom'
+import { loadUser } from '../../actions/userActions'
 
-const NewQuiz = ({ current, newQuiz }) => {
+const NewQuiz = ({ current, newQuiz, loadUser }) => {
     const [quiz, setQuiz] = useState({
         title: '',
         description: '',
@@ -12,6 +13,10 @@ const NewQuiz = ({ current, newQuiz }) => {
     })
     const { title, description, url } = quiz;
     let history = useHistory()
+
+    useEffect(() => {
+        loadUser()
+    }, [])
 
     const onChange = e => setQuiz({ ...quiz, [e.target.name]: e.target.value })
 
@@ -71,4 +76,4 @@ const mapStateToProps = (state) => ({
     current: state.course.currentCourse
 })
 
-export default connect(mapStateToProps, { newQuiz })(NewQuiz)
+export default connect(mapStateToProps, { newQuiz, loadUser })(NewQuiz)

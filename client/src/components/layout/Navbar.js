@@ -37,12 +37,14 @@ const Navbar = ({ user: { user, isAuthenticated }, logout, icon, title }) => {
                                             <Fragment>
 
                                                 <li>
-                                                    <Link to="/myCourses" className="waves-effect waves-light"><i className="material-icons large">golf_course</i>My Courses</Link>
+                                                    My Courses
+                                                    <Link to="/myCourses" className="waves-effect waves-light"><i className="material-icons large">golf_course</i></Link>
                                                 </li>
                                             </Fragment>
 
                                         ) : (
                                                 <li>
+                                                    Add A new course
                                                     <Link to="/addCourse" className="waves-effect waves-light"><i className="material-icons">add</i></Link>
                                                 </li>)}
                                         <li>

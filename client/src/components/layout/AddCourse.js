@@ -20,10 +20,12 @@ const AddCourse = ({ addCourse, loadUser, user }) => {
     const [course, setCourse] = useState({
         name: "",
         description: "",
+        price: ''
     })
     const {
         name,
         description,
+        price
     } = course
 
 
@@ -71,7 +73,8 @@ const AddCourse = ({ addCourse, loadUser, user }) => {
         addCourse(
             name,
             description,
-            url
+            url,
+            price
         )
         M.toast({ html: ` ${name}, you have successfully been registered ` })
     }
@@ -103,6 +106,15 @@ const AddCourse = ({ addCourse, loadUser, user }) => {
                                     type="text"
                                     name="description"
                                     value={description}
+                                    onChange={onChange}
+                                ></input>
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="price">Price</label>
+                                <input
+                                    type="text"
+                                    name="price"
+                                    value={price}
                                     onChange={onChange}
                                 ></input>
                             </div>

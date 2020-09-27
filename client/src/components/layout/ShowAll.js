@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Link } from "react-router-dom";
 import { getAnalytics } from '../../actions/courseActions'
+import { loadUser } from '../../actions/userActions'
 
-const ShowAll = ({ show, getAnalytics, current }) => {
+const ShowAll = ({ show, getAnalytics, current, loadUser }) => {
 
     const showan = (userid) => {
         getAnalytics(current._id, userid)
     }
+    useEffect(() => {
+        loadUser()
+    }, [])
 
     return (
         <div>
@@ -51,4 +55,4 @@ const mapStateToProps = (state) => ({
     current: state.course.currentCourse
 })
 
-export default connect(mapStateToProps, { getAnalytics })(ShowAll)
+export default connect(mapStateToProps, { getAnalytics, loadUser })(ShowAll)

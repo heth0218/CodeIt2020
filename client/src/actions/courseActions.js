@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT, SET_QUIZ, ADD_NEW_QUIZ, GET_ANALYTICS, SHOW_ALL } from './types'
+import { COURSE_ERROR, GET_COURSES, CLEAR_FILTER, FILTER_COURSES, SAVE_VIDEO, ADD_COURSE, GET_MY_COURSES, SET_CURRENT, SET_QUIZ, SEND_RESPONSE, ADD_NEW_QUIZ, GET_ANALYTICS, SHOW_ALL } from './types'
 
 export const getCourses = () => async dispatch => {
     try {
@@ -53,12 +53,13 @@ export const saveVideo = (current_id, title, url) => async dispatch => {
         })
     }
 }
-export const addCourse = (name, description, url) => async dispatch => {
+export const addCourse = (name, description, url, price) => async dispatch => {
 
     const doc = {
         Name: name,
         description,
-        Thumbnail: url
+        Thumbnail: url,
+        Price: price
     }
     try {
         const config = {
@@ -195,4 +196,15 @@ export const showAll = (course_id) => async dispatch => {
             payload: error.response.statusText
         })
     }
+}
+
+export const sendResponse = (data, current_id, quiz_id) => async dispatch => {
+    const config = {
+        headers: {
+            'Content-type': 'application/json'
+        }
+    }
+    console.log(current_id, quiz_id)
+    const response = await axios.post(`https://codeitbackend.herokuapp.com/api/mycourse/marks_entry/${current_id}/${quiz_id}`, data, config)
+    console.log(response.data)
 }
