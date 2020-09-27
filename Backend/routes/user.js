@@ -15,52 +15,30 @@ const validation = require('../middleware/validation');
 
 const DIR = './public/';
 
-// const storage = multer.diskStorage({
-//   destination: (req, file, cb) => {
-//     cb(null, DIR);
-//   },
-//   filename: (req, file, cb) => {
-//     const fileName = file.originalname.toLowerCase().split(' ').join('-');
-//     cb(null, uuid() + '-' + fileName);
-//   },
-// });
-// //multer middleware
-// let upload = multer({
-//   storage: storage,
-//   fileFilter: (req, file, cb) => {
-//     if (
-//       file.mimetype == 'image/png' ||
-//       file.mimetype == 'image/jpg' ||
-//       file.mimetype == 'image/jpeg'
-//     ) {
-//       cb(null, true);
-//     } else {
-//       cb(null, false);
-//       return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
-//     }
-//   },
-// });
-
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
     cb(null, DIR);
   },
   filename: (req, file, cb) => {
     const fileName = file.originalname.toLowerCase().split(' ').join('-');
-    cb(null, uuid() + '-' + fileName)
-  }
+    cb(null, uuid() + '-' + fileName);
+  },
 });
 //multer middleware
 let upload = multer({
   storage: storage,
   fileFilter: (req, file, cb) => {
-    if (file.mimetype == "image/png" || file.mimetype == "image/jpg" || file.mimetype == "image/jpeg") {
+    if (
+      file.mimetype == 'image/png' ||
+      file.mimetype == 'image/jpg' ||
+      file.mimetype == 'image/jpeg'
+    ) {
       cb(null, true);
     } else {
       cb(null, false);
       return cb(new Error('Only .png, .jpg and .jpeg format allowed!'));
     }
-  }
+  },
 });
 
 router.post('/register', upload.single('imageUrl'), async (req, res) => {
@@ -231,7 +209,7 @@ router.post(
   }
 );
 
-router.get('/', auth, async (req, res) => {
+router.get('/', validation, auth, async (req, res) => {
   try {
     const user = await User.findById(res.locals.user._id).select('-password');
     console.log(user.name);

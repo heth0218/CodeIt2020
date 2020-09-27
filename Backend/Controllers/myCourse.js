@@ -173,3 +173,25 @@ exports.Student_Progress = async (req, res, next) => {
     return res.status(500).json(error);
   }
 };
+
+exports.Course_data = async (req, res, next) => {
+  try {
+    console.log(req.params.course_id, req.user._id);
+    const course = await MyCourse.find({
+      Course: req.params.course_id,
+      user: req.user._id,
+    }).populate({
+      path: 'Course',
+      populate: {
+        path: 'videos quiz',
+      },
+    });
+    if (!course) {
+      return res.status(404).json({ success: false, msg: 'No course Found' });
+    }
+    return res.status(200).json({ success: true, data: course });
+  } catch (error) {
+    console.log(error);
+    return res.status(500).json(error);
+  }
+};
