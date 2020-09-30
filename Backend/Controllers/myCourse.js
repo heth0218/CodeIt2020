@@ -7,6 +7,7 @@ const multer = require('multer');
 const { uuid } = require('uuidv4');
 const DIR = './public/quiz_uploads';
 const fs = require('fs');
+const SendEmail = require('../Utils/SendEmail');
 
 const neatCsv = require('neat-csv');
 
@@ -19,6 +20,15 @@ exports.Enroll = async (req, res, next) => {
       Course: req.params.course_id,
       user: req.user._id,
     });
+    const u = User.findById(req.user._id);
+    const c_1 = Course.findById(req.params.course_id);
+    const message = `Thanks for Buying ${c_1.Name}`;
+    await SendEmail({
+      email: u.email,
+      subject: `Payment for course ${c_1.Name} successfull`,
+      message: message,
+    });
+
     if (c) {
       return res
         .status(400)
