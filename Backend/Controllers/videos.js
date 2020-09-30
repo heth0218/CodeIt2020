@@ -57,3 +57,21 @@ exports.getOneVideo = async(req, res, next) => {
         res.status(500).json({ msg: 'Server error ' + e });
     }
 };
+
+exports.getPubVideo = async(req, res, next) => {
+    try {
+        const PublisherID = req.params.pubID;
+        Video.findOne({ Publisher: PublisherID })
+            .then((data) => {
+                res.status(200).json({
+                    msg: 'Fetched video for publisher with ID - ' + PublisherID,
+                    data: data,
+                });
+            })
+            .catch((e) => {
+                res.status(500).json({ msg: 'Server error ' + e });
+            });
+    } catch (err) {
+        res.status(500).json({ msg: 'Server error ' + e });
+    }
+}
