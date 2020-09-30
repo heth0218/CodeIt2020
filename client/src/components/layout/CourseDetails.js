@@ -60,7 +60,6 @@ const CourseDetails = ({ myCourses, current, user, setQuiz, getAnalytics, showAl
                     <div className="card red lighten-5">
                         <div className="card-image">
                             <img src={Thumbnail} />
-                            <h2><span className="card-title white-text">{Name}</span></h2>
                             <span></span>
                         </div>
                     </div>
