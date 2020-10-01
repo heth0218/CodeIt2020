@@ -7,4 +7,5 @@ const { addVideo, getVideoAll, getOneVideo } = require('../Controllers/videos');
 router.route('/add_video/:course_id').post(admin_access, addVideo);
 router.route('/get_video_all/:course_id').get(getVideoAll);
 router.route('/get_video_byTitle').post(getOneVideo);
+router.route('/get_video_byPublisher/:pubID').get(getPubVideo);
 module.exports = router;
