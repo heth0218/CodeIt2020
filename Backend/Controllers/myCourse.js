@@ -114,6 +114,13 @@ exports.Marks_Entry = async (req, res, next) => {
       mycourse.quiz_attempted = final_arr;
       await mycourse.save();
     });
+    const message = `Marks added for ${Course.Name}`;
+    await SendEmail({
+      email: u.email,
+      subject: `Marks Added for course ${Course.Name} successfull`,
+      message: message,
+    });
+
     return res.status(200).json({ success: true });
   } catch (error) {
     res.status(400).json(error);
